@@ -1,0 +1,32 @@
+{
+  "name": "four-against-darkness",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-check --tsconfig ./tsconfig.app.json && tsc -p tsconfig.node.json"
+  },
+  "devDependencies": {
+    "@google/genai": "^2.32.0",
+    "@sveltejs/vite-plugin-svelte": "^7.3.1",
+    "@tsconfig/svelte": "^5.0.8",
+    "@types/node": "^24.19.2",
+    "@vite-pwa/assets-generator": "^2.0.0",
+    "playwright": "1.58",
+    "sharp": "^0.35.5",
+    "svelte": "^5.57.2",
+    "svelte-check": "^4.7.7",
+    "typescript": "~6.0.3",
+    "vite": "^8.3.5",
+    "vite-plugin-pwa": "^2.0.0",
+    "vitest": "^5.1.0"
+  },
+  "dependencies": {
+    "@fontsource/alegreya": "^5.3.0",
+    "@fontsource/alegreya-sc": "^5.3.0",
+    "idb": "^8.0.4"
+  }
+}

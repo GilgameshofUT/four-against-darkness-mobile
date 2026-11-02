@@ -1,0 +1,114 @@
+/* Dragonbane-inspired theme: parchment, verdigris teal, oxblood, brass. Tuned for Pixel 11 Pro XL (~448×997 CSS px). */
+:root {
+  --parch: #efe2c4;
+  --parch-2: #e5d3ab;
+  --parch-3: #d8c294;
+  --ink: #2b2116;
+  --ink-soft: #5a4a36;
+  --teal: #1f4b48;
+  --teal-2: #2d6560;
+  --teal-3: #3f7f77;
+  --verdigris: #6fa394;
+  --oxblood: #7d2b22;
+  --oxblood-2: #a03a2d;
+  --brass: #b4893c;
+  --brass-2: #d9b66a;
+  --night: #15120e;
+  --night-2: #221c15;
+  --good: #3f7a45;
+  --bad: #a03a2d;
+  --radius: 10px;
+  --frame: 3px solid var(--teal);
+  --shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  --font-body: 'Alegreya', Georgia, serif;
+  --font-head: 'Alegreya SC', 'Alegreya', Georgia, serif;
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  --safe-t: env(safe-area-inset-top, 0px);
+  font-family: var(--font-body);
+  /* Fluid type: scales with screen width so the UI fills large phones (≈17px at 448px wide, up to 21px). */
+  font-size: clamp(16px, 3.8vw, 21px);
+  line-height: 1.35;
+  color: var(--ink);
+  background: var(--night);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overscroll-behavior: none; }
+body { background: radial-gradient(ellipse at 50% 20%, #2a231a 0%, #15120e 60%, #0b0907 100%); }
+#app { height: 100dvh; width: 100%; max-width: 100vw; margin: 0 auto; position: relative; overflow: hidden; }
+/* Only cap width on genuinely large screens (tablets/desktop); phones always fill edge to edge. */
+@media (min-width: 48.235rem) { #app { max-width: 44.706rem; box-shadow: 0 0 60px rgba(0,0,0,.6); } }
+
+h1, h2, h3, h4 { font-family: var(--font-head); margin: 0; letter-spacing: 0.02em; line-height: 1.1; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.45rem; }
+h3 { font-size: 1.15rem; }
+p { margin: 0.4em 0; }
+img { max-width: 100%; display: block; }
+
+.parchment {
+  background: linear-gradient(rgba(242, 230, 204, 0.82), rgba(236, 222, 192, 0.86)), url('/art/textures/parchment.webp') center / 420px repeat, var(--parch);
+  color: var(--ink);
+}
+.panel {
+  background: linear-gradient(rgba(242, 230, 204, 0.86), rgba(234, 219, 188, 0.9)), url('/art/textures/parchment.webp') center / 420px repeat, var(--parch);
+  border: var(--frame);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow), inset 0 0 0 2px var(--brass-2), inset 0 0 24px rgba(120, 80, 30, 0.25);
+  padding: 0.824rem;
+}
+.banner {
+  background: linear-gradient(180deg, var(--teal-2), var(--teal));
+  color: var(--parch);
+  font-family: var(--font-head);
+  padding: 0.353rem 12px;
+  border-radius: 6px;
+  border: 1px solid var(--brass);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  text-align: center;
+}
+
+button { font: inherit; color: inherit; cursor: pointer; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.471rem;
+  min-height: 2.824rem; padding: 0.588rem 18px;
+  border-radius: 8px; border: 2px solid var(--teal);
+  background: linear-gradient(180deg, var(--parch), var(--parch-2));
+  color: var(--ink); font-family: var(--font-head); font-size: 1.05rem;
+  box-shadow: 0 2px 0 var(--teal), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  transition: transform 0.06s ease, filter 0.15s;
+  user-select: none;
+}
+.btn:active { transform: translateY(2px); box-shadow: 0 0 0 var(--teal); }
+.btn.primary { background: linear-gradient(180deg, var(--teal-3), var(--teal)); color: var(--parch); border-color: var(--brass); box-shadow: 0 2px 0 #0d2523, inset 0 1px 0 rgba(255, 255, 255, 0.2); }
+.btn.danger { background: linear-gradient(180deg, var(--oxblood-2), var(--oxblood)); color: var(--parch); border-color: #4a1612; box-shadow: 0 2px 0 #3b120e; }
+.btn.quiet { background: transparent; border-color: var(--ink-soft); box-shadow: none; color: var(--ink-soft); }
+.btn.good { background: linear-gradient(180deg, #5c9a5f, var(--good)); color: var(--parch); border-color: #234a27; }
+.btn:disabled, .btn[aria-disabled='true'] { filter: grayscale(0.8) opacity(0.5); pointer-events: none; }
+.btn.block { width: 100%; }
+.btn.small { min-height: 2.235rem; padding: 0.353rem 12px; font-size: 0.95rem; }
+
+.muted { color: var(--ink-soft); }
+.small { font-size: 0.85rem; }
+.tiny { font-size: 0.75rem; }
+.row { display: flex; gap: 0.471rem; align-items: center; }
+.col { display: flex; flex-direction: column; gap: 0.471rem; }
+.grow { flex: 1; }
+.center { text-align: center; }
+.scroll { overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.pill { display: inline-block; padding: 1px 8px; border-radius: 99px; background: var(--parch-3); font-size: 0.8rem; border: 1px solid rgba(0,0,0,.15); }
+.pill.teal { background: var(--teal-2); color: var(--parch); }
+.pill.red { background: var(--oxblood); color: var(--parch); }
+.pill.gold { background: var(--brass); color: var(--night); }
+.divider { height: 0.824rem; background: url('/art/ui/frame_ornament.webp') center / contain no-repeat; margin: 6px 0; opacity: 0.85; }
+
+.portrait { border-radius: 8px; border: 2px solid var(--teal); box-shadow: 0 2px 6px rgba(0,0,0,.4); object-fit: cover; background: var(--night-2); }
+.lifebar { height: 0.471rem; border-radius: 4px; background: rgba(0,0,0,.25); overflow: hidden; }
+.lifebar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--oxblood-2), #d0574a); transition: width 0.4s; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes pop { 0% { transform: scale(0.6); opacity: 0; } 70% { transform: scale(1.08); } 100% { transform: scale(1); opacity: 1; } }
+@keyframes shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }

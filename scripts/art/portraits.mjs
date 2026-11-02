@@ -1,0 +1,123 @@
+// 4 portraits per class, varied gender, age and ancestry.
+export const PORTRAITS = {
+  acrobat: [
+    'a lithe young woman acrobat with a shaved undercut and braided top-knot, loose patched tumbling clothes, a throwing knife twirling in her fingers, mischievous grin',
+    'a wiry dark-skinned man acrobat in striped loose clothing with a coil of rope over his shoulder, balancing a knife on one fingertip',
+    'a middle-aged circus-veteran acrobat woman with freckles and wild red curls, faded harlequin-patterned tunic, confident smirk',
+    'a nimble East Asian young man acrobat with a ribbon headband, bare forearms wrapped in cloth, crouched mid-flip',
+  ],
+  assassin: [
+    'a hooded assassin woman with a dark scarf over her lower face, cold grey eyes, leather armor, a curved dagger held low',
+    'a lean bald assassin man with a scar across his lips, dark leather jerkin, short crossbow over his shoulder',
+    'an elegant older assassin with silver-streaked hair tied back, fine dark coat over light armor, two stilettos in a bandolier',
+    'a young assassin with olive skin and a deep hood, half in shadow, poison vial glinting at the belt',
+  ],
+  barbarian: [
+    'a towering barbarian woman with braided blond hair, fur mantle, light leather armor, round wooden shield and hand axe, war paint on her cheeks',
+    'a massive bearded barbarian man with a two-handed greataxe over his shoulder, bear-pelt cloak, scarred bare arms',
+    'a grizzled grey-bearded barbarian elder with bone talismans, fur-trimmed leather, holding a short bow',
+    'a young dark-skinned barbarian man with tribal tattoos, beaded braids, spear and hide shield',
+  ],
+  bulwark: [
+    'a broad-shouldered bulwark woman in heavy plate armor holding a huge tower shield with a verdigris-green boss, determined jaw, short cropped hair',
+    'a stoic bulwark man with a thick moustache in battered heavy armor, kite shield covered in dents and scratches',
+    'an older bulwark knight with weathered skin, helmet under arm, enormous rectangular shield strapped to his forearm',
+    'a stout dark-skinned bulwark woman in scale armor bracing behind a riveted round shield, mace at her hip',
+  ],
+  cleric: [
+    'a kindly middle-aged cleric man in light mail and a teal tabard, holy sun symbol pendant, mace and small shield',
+    'a stern young cleric woman with a shaved head, prayer beads wrapped around her wrist, light armor, warhammer',
+    'an elderly bearded cleric with gentle eyes, oxblood robes over chainmail, holding a glowing holy symbol aloft',
+    'a dark-skinned cleric woman with braided hair under a hood, shield emblazoned with a brass star, calm resolve',
+  ],
+  dwarf: [
+    'a stocky dwarf warrior man with a magnificent braided red beard with brass rings, horned helmet, axe and round shield',
+    'a dwarf woman with braided black hair and a short braided beard, heavy armor, two-handed warhammer, gold earrings',
+    'an old dwarf with a long white beard tucked into his belt, eyepatch, sniffing a gold coin suspiciously',
+    'a young dwarf with a stubbly brown beard, soot-smudged face, miner\'s helmet and a pickaxe-hammer',
+  ],
+  druid: [
+    'a druid woman with wild green-streaked hair woven with leaves and twigs, antler circlet, staff of twisted wood, a fox at her shoulder',
+    'an old druid man with a moss-tangled beard, hooded cloak of leaves, sickle at his belt, crow on his staff',
+    'a young druid with dark skin and leaf tattoos, light leather armor, wooden staff with a glowing seed',
+    'a serene druid woman with silver hair, wreath of mistletoe, leafsteel armor, hands cupping a small sprouting light',
+  ],
+  elf: [
+    'a tall elf woman with long silver-blonde hair and pointed ears, slender longbow, elegant light armor with leaf motifs, sword at her hip',
+    'an elf man with dark hair in a single braid, almond eyes, green-grey cloak, hand crackling with faint lightning',
+    'an ancient-looking elf with pale skin and ageless face, starlight-blue eyes, ornate elven chainmail',
+    'a copper-skinned elf woman with auburn hair, feathered hair ornaments, bow drawn half-way',
+  ],
+  gnome: [
+    'a tiny gnome tinkerer with goggles pushed up on a bald head, bushy white moustache, a clockwork gadget in hand, tools on a bandolier',
+    'a gnome woman with wild purple-tinted hair, brass magnifying lenses, leather apron full of gears, grinning',
+    'a gnome in ticking clockwork armor of brass plates and spinning cogs, pointed hat, holding a smoking grenade',
+    'a young gnome with freckles and a crooked smile, holding a contraption of gears and prisms, sling at the belt',
+  ],
+  halfling: [
+    'a cheerful plump halfling man with curly brown hair, a frying pan hanging from his pack, sling in hand, bare hairy feet',
+    'a halfling woman with rosy cheeks and a flower in her curly hair, dagger at her hip, satchel of food',
+    'an old halfling with a pipe, waistcoat and patched cloak, lucky coin between his fingers',
+    'a young halfling with tousled black hair, light leather armor, sling twirling, sly expression',
+  ],
+  illusionist: [
+    'an illusionist man in a purple and teal robe with shimmering ghostly mirror images faintly around him, knowing smile, medallion glowing with continual light',
+    'an illusionist woman with a half-mask, swirling smoky shapes and butterflies of light around her hands',
+    'an eccentric old illusionist with a long thin beard and a pointed hat glowing at the tip, eyes twinkling',
+    'a young illusionist with mismatched eyes, colorful layered scarves, tossing a translucent illusory knife',
+  ],
+  kukla: [
+    'a kukla — a small living porcelain doll the size of a child, extremely long dark prehensile hair moving on its own, glass eyes, frilly doll dress, red ring and green ring on her fingers, eerie but innocent',
+    'a kukla living doll of carved wood and cloth with stitched joints, long copper hair coiled like ropes, button eyes, sailor dress, holding a dagger',
+    'a kukla living doll with cracked painted ceramic face, silver-white hair floating around her, tiny lace gloves, unsettling sweet smile',
+    'a kukla living doll with visible brass gears at the wrists, braided black hair holding a lantern, dark velvet doll clothes',
+  ],
+  light_gladiator: [
+    'a light gladiator woman with two short swords crossed, light leather arena armor, one bare shoulder with a laurel tattoo',
+    'a muscular light gladiator man with a net-scarred face, two daggers, leather manica on one arm',
+    'a veteran light gladiator with grey stubble and many scars, twin sickle-swords, confident stance',
+    'a young dark-skinned light gladiator with cornrows, leafsteel bracers, twin knives spinning',
+  ],
+  mushroom_monk: [
+    'a mushroom monk — a humanoid fungus person with a wide red-and-white spotted mushroom cap for a head, calm face beneath the cap, monk sash, holding nunchaku',
+    'a mushroom monk with a brown bolete cap and mossy skin, martial arts stance, bo staff, tiny spores drifting around',
+    'a mushroom monk with a pale glowing blue cap and slender body, throwing stars in hand, serene closed eyes',
+    'an old mushroom monk with a gnarled shelf-fungus cap and long hyphae beard, meditating pose, orange sash',
+  ],
+  paladin: [
+    'a noble paladin woman in polished heavy plate with brass trim, teal surcoat with a sun emblem, longsword raised, shield on arm',
+    'a stalwart bearded paladin man in heavy armor, warhammer and kite shield, halo-like light behind his head',
+    'an older paladin with white hair and a stern face, battle-worn armor, greatsword planted in front',
+    'a young dark-skinned paladin woman in shining armor, helmet with wings, holy symbol on her shield',
+  ],
+  ranger: [
+    'a ranger woman in a hooded forest-green cloak, longbow and quiver, two short swords crossed on her back, keen eyes',
+    'a weathered ranger man with a scruffy beard, leather armor, bow in hand, wolf-pelt mantle',
+    'a lean ranger with braided hair and face paint, light armor, tracking pose, two hand axes',
+    'an older ranger with a scarred cheek and keen squint, tricorne-like hood, bow over shoulder, trophies of orc tusks',
+  ],
+  rogue: [
+    'a rogue woman with a sly grin and short dark hair, leather armor, dagger flipping in her fingers, lockpicks on a bandolier',
+    'a scruffy rogue man with a hood and a crooked nose, coin purse in hand, coil of rope on shoulder',
+    'a dapper rogue with a thin moustache and feathered cap, light armor, sling and dagger',
+    'a young rogue with freckles and a bandana, leaning casually, lockpick between the teeth',
+  ],
+  swashbuckler: [
+    'a dashing swashbuckler woman with a plumed cavalier hat, half-cape, rapier and main-gauche, confident smirk',
+    'a swashbuckler man with a tricorn hat, curled moustache, open-collared shirt, rapier and flintlock pistol',
+    'a swashbuckler with an eyepatch and a broad feathered hat, sabre raised, laughing',
+    'a young swashbuckler with long wavy hair under a plumed hat, fencing stance, half-cape flaring',
+  ],
+  warrior: [
+    'a warrior woman in light chainmail with a sword and round shield, braided hair, battle-ready',
+    'a warrior man with a heavy jaw and stubble, light armor, two-handed greatsword resting on his shoulder',
+    'a veteran warrior with a grey beard and a broken nose, light armor, mace and shield',
+    'a young warrior with dark skin and a confident grin, longbow, sword at hip, light leather armor',
+  ],
+  wizard: [
+    'an old wizard with a long white beard and a wide brimmed pointed hat, deep blue robes, spellbook under arm, staff',
+    'a young wizard woman with ink-stained fingers, spectacles, messy bun with quills, glowing rune on her palm',
+    'a wizard man with dark skin and a teal hooded robe, crackling lightning between his fingers',
+    'a hunched eccentric wizard with an owl on his shoulder, patched robes, dagger and scroll case',
+  ],
+};
