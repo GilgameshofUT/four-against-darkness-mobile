@@ -34,6 +34,7 @@
         {#if left}<span class="leftchip">⚔ {left.bodies} left</span>{/if}
         <button class="utilbtn" onclick={() => (ui.showLog = !ui.showLog)} aria-label="Adventure log">📜</button>
         <button class="utilbtn" onclick={() => (ui.showMenu = !ui.showMenu)} aria-label="Menu">☰</button>
+        <button class="utilbtn" onclick={() => (ui.promptHidden = true)} aria-label="Hide prompt to use the top bar">⌄</button>
       </div>
     </div>
     <div class="opts scroll">

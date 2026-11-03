@@ -3,7 +3,13 @@
   import { FOES } from '../../data/foes';
   import { foeAlive, isMinor } from '../../engine/foe';
 import { combatFoes } from '../store.svelte';
-  const c = $derived((void ui.version, ui.s.combat!));
+  // Fresh object identity per bump: the engine mutates combat in place and
+  // deriveds that return the identical reference never propagate downstream.
+  const c = $derived((void ui.version, { ...ui.s.combat! }));
+  // Snapshot per render: the engine mutates foe objects in place and keyed
+  // each rows do not refresh for identical item references, so copy.
+  const foes = $derived(c.foes.filter(foeAlive).map((f) => ({ ...f })));
+  const allies = $derived(c.allies.filter((a) => a.life > 0).map((a) => ({ ...a })));
   const left = $derived(combatFoes());
   const env = $derived(ui.s.dungeon?.tiles[ui.s.dungeon.currentTile]?.env ?? 'dungeon');
   const bg = $derived(c.corridor ? 'combat_bg_corridor' : env === 'caverns' ? 'combat_bg_cavern' : env === 'fungal' ? 'combat_bg_fungal' : 'combat_bg_dungeon');
@@ -19,7 +25,7 @@ import { combatFoes } from '../store.svelte';
     {#if c.partySurprise && c.turn === 1}<span class="pill gold">You surprised them</span>{/if}
   </div>
   <div class="foes">
-    {#each c.foes.filter(foeAlive) as f (f.uid)}
+    {#each foes as f (f.uid)}
       {@const def = FOES[f.defId]}
       <div class="foe" class:boss={f.finalBoss}>
         <img src={art(`monsters/${def.art ?? f.defId}`)} alt="" />
@@ -37,7 +43,7 @@ import { combatFoes } from '../store.svelte';
         </div>
       </div>
     {/each}
-    {#each c.allies.filter((a) => a.life > 0) as a}
+    {#each allies as a}
       <div class="foe ally"><div class="fi"><div class="fname">🐻 {a.name} (L{a.level}, ♥{a.life})</div></div></div>
     {/each}
   </div>

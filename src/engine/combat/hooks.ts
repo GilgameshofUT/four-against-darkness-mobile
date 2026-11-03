@@ -142,6 +142,8 @@ async function ironEater(g: Game, h: Hero) {
     h.inventory = h.inventory.filter((i) => i !== target);
     for (const k of ['main', 'off', 'armor'] as const) if (h.equip[k] === target.uid) h.equip[k] = undefined;
     g.log('bad', `The iron eater devours ${h.name}'s ${target.name}!`);
+    // Gear loss is easy to miss in the combat scroll: demand a tap.
+    await g.say(`${target.name} devoured!`, `The iron eater eats ${h.name}'s ${target.name}. Check the hero sheet — Defense may have dropped.`, 'monsters/iron_eater');
   } else {
     const lost = Math.min(g.s.partyGold, g.roll('3d6'));
     g.s.partyGold -= lost;

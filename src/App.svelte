@@ -32,4 +32,26 @@
   {#if ui.showSettings}<Settings />{/if}
   <Toast />
   <PromptHost />
+  {#if ui.pending && ui.promptHidden}
+    <button class="resume" onclick={() => (ui.promptHidden = false)}>▶ Resume</button>
+  {/if}
 {/if}
+
+<style>
+  .resume {
+    position: absolute;
+    left: 50%;
+    bottom: calc(14px + var(--safe-b));
+    transform: translateX(-50%);
+    z-index: 80;
+    min-height: 3rem;
+    padding: 0.471rem 22px;
+    border-radius: 99px;
+    border: 2px solid var(--brass);
+    background: linear-gradient(180deg, var(--teal-3), var(--teal));
+    color: var(--parch);
+    font-family: var(--font-head);
+    font-size: 1.1rem;
+    box-shadow: var(--shadow);
+  }
+</style>

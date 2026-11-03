@@ -8,7 +8,9 @@
   import { madnessLimit } from '../../engine/effects';
 
   let { heroId }: { heroId: string } = $props();
-  const h = $derived((void ui.version, ui.s.guild.roster.find((x) => x.id === heroId) ?? ui.s.guild.graveyard.find((x) => x.id === heroId)));
+  // Fresh identity per bump (engine mutates heroes in place); arrays copied so rows refresh.
+  const found = $derived((void ui.version, ui.s.guild.roster.find((x) => x.id === heroId) ?? ui.s.guild.graveyard.find((x) => x.id === heroId)));
+  const h = $derived(found && { ...found, inventory: [...found.inventory], spells: [...found.spells], conditions: [...found.conditions], secrets: [...(found.secrets ?? [])], resources: { ...found.resources } });
   const cls = $derived(h ? CLASSES[h.classId] : undefined);
   const inDungeon = $derived(!!ui.s.dungeon);
   const bdesc = (b: string) => (b === 'L' ? '+L' : b === 'half' ? '+½L' : b === 'tier' ? '+Tier' : b === 'one' ? '+1' : '—');

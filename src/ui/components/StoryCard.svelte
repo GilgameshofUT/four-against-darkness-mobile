@@ -15,6 +15,7 @@
       <span class="grow"></span>
       <button class="btn small quiet" onclick={(e) => (e.stopPropagation(), (ui.showLog = !ui.showLog))}>📜 Log</button>
       <button class="btn small quiet" onclick={(e) => (e.stopPropagation(), (ui.showMenu = !ui.showMenu))}>☰ Menu</button>
+      <button class="btn small quiet" onclick={(e) => (e.stopPropagation(), (ui.promptHidden = true))}>⌄ Hide</button>
     </div>
     <button class="btn primary block" onclick={(e) => (e.stopPropagation(), ui.answer(undefined))}>Continue</button>
   </div>

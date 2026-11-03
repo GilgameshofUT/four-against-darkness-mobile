@@ -4,7 +4,7 @@
   import { CLASSES } from '../../data/classes';
 
   const order = $derived((void ui.version, ui.s.dungeon?.marchingOrder ?? ui.s.party).map((id) => ui.s.guild.roster.find((h) => h.id === id)!).filter(Boolean));
-  const c = $derived((void ui.version, ui.s.combat));
+  const c = $derived((void ui.version, ui.s.combat ? { ...ui.s.combat } : undefined));
 
   function res(h: (typeof order)[number]): string {
     const r = h.resources;

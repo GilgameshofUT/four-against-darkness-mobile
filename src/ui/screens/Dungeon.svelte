@@ -17,7 +17,9 @@
   import { exitsFrom } from '../../engine/dungeon/explore';
   import { directionName } from '../../engine/dungeon/features';
 
-  const d = $derived((void ui.version, ui.s.dungeon));
+  // Fresh identity per bump: the engine mutates the dungeon in place and a
+  // derived returning the identical reference never propagates downstream.
+  const d = $derived((void ui.version, ui.s.dungeon ? { ...ui.s.dungeon } : undefined));
   const tile = $derived((void ui.version, d ? d.tiles[d.currentTile] : undefined));
   let viewRegion = $state<string | null>(null);
   const region = $derived(viewRegion ?? tile?.region ?? 'r0');

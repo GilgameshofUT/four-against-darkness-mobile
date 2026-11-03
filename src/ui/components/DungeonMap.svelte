@@ -6,10 +6,10 @@
 
   let { regionId, onExit }: { regionId: string; onExit: (c: Connector) => void } = $props();
   const CELL = 22;
-  const d = $derived((void ui.version, ui.s.dungeon!));
-  const tiles = $derived((void ui.version, Object.values(d.tiles).filter((t) => t.region === regionId)));
+  const d = $derived((void ui.version, { ...ui.s.dungeon! }));
+  const tiles = $derived((void ui.version, Object.values(d.tiles).filter((t) => t.region === regionId).map((t) => ({ ...t }))));
   const region = $derived(d.regions.find((r) => r.id === regionId)!);
-  const current = $derived((void ui.version, d.tiles[d.currentTile]));
+  const current = $derived((void ui.version, { ...d.tiles[d.currentTile] }));
   const tex = $derived(region.env === 'caverns' ? 'cavern_floor' : region.env === 'fungal' ? 'fungal_floor' : 'dungeon_floor');
   const corrTex = $derived(region.env === 'dungeon' ? 'dungeon_corridor' : tex);
 

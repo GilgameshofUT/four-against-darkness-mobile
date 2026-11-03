@@ -20,6 +20,8 @@ class UiStore {
   sheetHero = $state<string | null>(null);
   showLog = $state(false);
   showMenu = $state(false);
+  /** Player minimized the prompt sheet to use the topbar; the engine still awaits the answer. */
+  promptHidden = $state(false);
   showSettings = $state(false);
   game!: Game;
   private snapshot = '';
@@ -87,6 +89,7 @@ class UiStore {
     const p = this.pending;
     if (!p) return;
     this.pending = null;
+    this.promptHidden = false;
     if (p.kind === 'choice') p.resolve(v);
     else p.resolve();
   }
