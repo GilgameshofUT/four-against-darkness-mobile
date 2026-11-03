@@ -107,6 +107,8 @@ export class Game {
     if (m && Number(m[2]) === 6) faces = Array.from({ length: m[1] ? Number(m[1]) : 1 }, () => this.d6());
     else faces = [this.roll(expr)];
     const res = finish({ label, explode: false, mods: opts.mods }, 6, faces);
+    // Multiple dice for one lookup (e.g. 2d6 doors) are not an explosion.
+    res.exploded = false;
     if (opts.target !== undefined) {
       res.target = opts.target;
       res.mode = 'gte';
@@ -124,6 +126,7 @@ export class Game {
     const a = this.d6();
     const b = this.d6();
     const res = finish({ label, explode: false }, 6, [a, b]);
+    res.exploded = false; // two lookup dice, not an explosion
     res.total = a * 10 + b;
     await this.io.roll({ label, context: 'd66: first die = tens' }, res);
     return res.total;

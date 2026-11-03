@@ -10,12 +10,22 @@ export function useFiendish(g: Game): boolean {
   return false;
 }
 
+/** Display names for a foe table, aligned 1:1 with d6 roll values.
+ * Dungeon minions entry 1 is "Skeletons (1-3) or Zombies (4-6)": two defs share
+ * slot 1, so slots 2-6 are table[2..6]. Everywhere else slot i is table[i-1]. */
+export function tableEntryNames(env: Env, cat: FoeCategory, fiendish: boolean): string[] {
+  const table = foeTable(env, cat, fiendish);
+  if (!fiendish && env === 'dungeon' && cat === 'minion')
+    return [`1 ${table[0].name} (1-3) or ${table[1].name} (4-6)`, ...table.slice(2).map((f, i) => `${i + 2} ${f.name}`)];
+  return table.map((f, i) => `${i + 1} ${f.name}`);
+}
+
 /** Roll a foe on the environment table. Dungeon minion 1 = skeletons (1-3) or zombies (4-6). */
 export async function rollFoe(g: Game, env: Env, cat: FoeCategory, opts: { wandering?: boolean; fiendish?: boolean } = {}): Promise<FoeDef> {
   const fiendish = opts.fiendish ?? useFiendish(g);
   for (let guard = 0; guard < 20; guard++) {
     const table = foeTable(env, cat, fiendish);
-    const names = table.map((f, i) => `${i + 1} ${f.name}`).join(' · ');
+    const names = tableEntryNames(env, cat, fiendish).join(' · ');
     const r = await g.tableRoll(`${fiendish ? 'Fiendish ' : ''}${catName(cat)} table`, 'd6', { context: names });
     let def: FoeDef;
     if (!fiendish && env === 'dungeon' && cat === 'minion') {
