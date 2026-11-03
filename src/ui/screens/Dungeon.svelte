@@ -42,7 +42,7 @@
   }
   const showQuest = $derived(d ? (void ui.version, questCanTurnIn(ui.game)) : false);
   let lastTile = '';
-  let menu = $state(false);
+
 
   $effect(() => {
     if (allDead && !ui.busy && d) ui.run((g) => endAdventure(g, 'wipe'));
@@ -89,7 +89,7 @@
 {#if d && tile}
   <div class="dungeon">
     <div class="topbar">
-      <button class="iconbtn" onclick={() => (menu = !menu)} aria-label="Menu">☰</button>
+      <button class="iconbtn" onclick={() => (ui.showMenu = !ui.showMenu)} aria-label="Menu">☰</button>
       <div class="ttl">
         <div class="env">{envName}{d.adventureKey === 'witch' ? " · Milethia's Cave" : ''}</div>
         <div class="tiny stats">
@@ -101,8 +101,8 @@
           {#if !hasLight(ui.game)}<span class="pill red">Darkness</span>{/if}
         </div>
       </div>
-      <button class="iconbtn" onclick={() => act('inventory')} aria-label="Packs">🎒</button>
-      <button class="iconbtn" onclick={() => act('marching')} aria-label="Marching order">⇅</button>
+      <button class="iconbtn" onclick={() => act('inventory')} aria-label="Packs" disabled={!!ui.s.combat} title={ui.s.combat ? 'Packs are unavailable mid-combat' : 'Packs'}>🎒</button>
+      <button class="iconbtn" onclick={() => act('marching')} aria-label="Marching order" disabled={!!ui.s.combat} title={ui.s.combat ? 'Marching order cannot change mid-combat' : 'Marching order'}>⇅</button>
       <button class="iconbtn" onclick={() => (ui.showLog = !ui.showLog)} aria-label="Log">📜</button>
     </div>
 
@@ -148,13 +148,14 @@
       {/if}
     </div>
     {#if ui.showLog}<LogPanel />{/if}
-    {#if menu}
-      <div class="menu-bg" role="presentation" onclick={() => (menu = false)}>
+    {#if ui.showMenu}
+      <div class="menu-bg" role="presentation" onclick={() => (ui.showMenu = false)}>
         <div class="panel menu" role="presentation" onclick={(e) => e.stopPropagation()}>
-          <button class="btn block" onclick={() => ((menu = false), (ui.screen = 'title'))}>Title screen (progress is saved)</button>
-          <button class="btn block" onclick={() => ((menu = false), (ui.showSettings = true))}>Settings</button>
-          <button class="btn danger block" onclick={() => ((menu = false), act('abandon'))}>Abandon adventure</button>
-          <button class="btn quiet block" onclick={() => (menu = false)}>Close</button>
+          <button class="btn block" onclick={() => ((ui.showMenu = false), (ui.screen = 'title'))}>Title screen (progress is saved)</button>
+          <button class="btn block" onclick={() => ((ui.showMenu = false), (ui.showSettings = true))}>Settings</button>
+          <button class="btn danger block" disabled={!!ui.s.combat} title={ui.s.combat ? 'Finish the fight before abandoning the adventure' : 'Abandon the adventure'} onclick={() => ((ui.showMenu = false), act('abandon'))}>Abandon adventure</button>
+          {#if ui.s.combat}<div class="tiny muted center">Abandon is unavailable mid-combat.</div>{/if}
+          <button class="btn quiet block" onclick={() => (ui.showMenu = false)}>Close</button>
         </div>
       </div>
     {/if}
@@ -164,19 +165,21 @@
 <style>
   .dungeon { position: absolute; inset: 0; display: flex; flex-direction: column; background: #0e0c09; }
   .topbar { display: flex; align-items: center; gap: 0.471rem; padding: calc(0.353rem + var(--safe-t)) 8px 6px; background: linear-gradient(180deg, var(--teal), #163634); color: var(--parch); border-bottom: 2px solid var(--brass); }
+  .iconbtn[disabled] { opacity: .4; }
   .iconbtn { width: 2.588rem; height: 2.588rem; border-radius: 8px; border: 1px solid var(--brass); background: rgba(0, 0, 0, 0.2); color: var(--parch); font-size: 1.2rem; }
   .ttl { flex: 1; min-width: 0; }
   .env { font-family: var(--font-head); font-size: 1.1rem; }
   .stats { display: flex; gap: 0.588rem; flex-wrap: wrap; opacity: 0.9; }
   .regions { display: flex; gap: 0.353rem; padding: 4px 8px; background: #15120e; }
   .stage { flex: 1; position: relative; min-height: 0; }
+  .center { text-align: center; }
   .quest { background: var(--brass); color: var(--night); padding: 3px 10px; }
   .bottom { background: linear-gradient(180deg, #2a2218, #1a1510); border-top: 2px solid var(--brass); padding-bottom: calc(0.353rem + var(--safe-b)); }
   .acts { display: flex; gap: 0.353rem; padding: 2px 8px 4px; flex-wrap: wrap; justify-content: center; }
   .acts .btn { flex: 1 1 auto; white-space: nowrap; min-height: 2.471rem; }
   .hint { color: rgba(239, 226, 196, 0.6); text-align: center; padding: 0 0.471rem 2px; }
   .hint .red { color: #d06a5c; }
-.menu-bg { position: absolute; inset: 0; z-index: 30; background: rgba(0,0,0,.5); display: flex; align-items: flex-start; padding: calc(3.529rem + var(--safe-t)) 10px; }
+.menu-bg { position: absolute; inset: 0; z-index: 70; background: rgba(0,0,0,.5); display: flex; align-items: flex-start; padding: calc(3.529rem + var(--safe-t)) 10px; }
   .menu { width: 100%; display: flex; flex-direction: column; gap: 0.471rem; }
 .exits { display: flex; flex-wrap: wrap; gap: 0.353rem; padding: 2px 8px 4px; }
   .exit-btn .lbl { line-height: 1.05; }

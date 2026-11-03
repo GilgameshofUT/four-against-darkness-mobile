@@ -88,7 +88,7 @@
 {/if}
 
 <style>
-  .bg { position: absolute; inset: 0; z-index: 35; background: rgba(0, 0, 0, 0.55); display: flex; align-items: flex-end; padding: 0.471rem 8px calc(8px + var(--safe-b)); animation: fadeIn 0.15s; }
+  .bg { position: absolute; inset: 0; z-index: 70; background: rgba(0, 0, 0, 0.55); display: flex; align-items: flex-end; padding: 0.471rem 8px calc(8px + var(--safe-b)); animation: fadeIn 0.15s; }
   .sheet { width: 100%; max-height: 92dvh; display: flex; flex-direction: column; gap: 0.353rem; animation: slideUp 0.2s; }
   .top { display: flex; gap: 0.706rem; }
   .big { width: 7.059rem; height: 9.412rem; flex: none; }

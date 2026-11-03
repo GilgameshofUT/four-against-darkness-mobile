@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { ui, art } from '../store.svelte';
+  import { ui, art, combatFoes } from '../store.svelte';
   let { title, text, image }: { title: string; text: string; image?: string } = $props();
+  const left = $derived(combatFoes());
 </script>
 
 <div class="bg" role="presentation" onclick={() => ui.answer(undefined)}>
@@ -9,6 +10,12 @@
     <h2>{title}</h2>
     <div class="divider"></div>
     {#each text.split('\n').filter(Boolean) as para}<p>{para}</p>{/each}
+    <div class="utilrow">
+      {#if left}<span class="leftchip">⚔ {left.bodies} left</span>{/if}
+      <span class="grow"></span>
+      <button class="btn small quiet" onclick={(e) => (e.stopPropagation(), (ui.showLog = !ui.showLog))}>📜 Log</button>
+      <button class="btn small quiet" onclick={(e) => (e.stopPropagation(), (ui.showMenu = !ui.showMenu))}>☰ Menu</button>
+    </div>
     <button class="btn primary block" onclick={(e) => (e.stopPropagation(), ui.answer(undefined))}>Continue</button>
   </div>
 </div>
@@ -19,4 +26,7 @@
   .img { margin: -14px -14px 6px; height: 13.529rem; overflow: hidden; border-radius: 8px 8px 0 0; border-bottom: 2px solid var(--teal); background: var(--parch-2); }
   .img img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; }
   h2 { text-align: center; color: var(--teal); }
+  .utilrow { display: flex; gap: 4px; align-items: center; }
+  .utilrow .grow { flex: 1; }
+  .leftchip { font-family: var(--font-head); font-size: .8rem; background: var(--oxblood); color: var(--parch); border-radius: 99px; padding: 2px 8px; white-space: nowrap; }
 </style>

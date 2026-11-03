@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ui, art } from '../store.svelte';
+  import { ui, art, combatFoes } from '../store.svelte';
   import type { RollPrompt } from '../../engine/io';
   import type { RollResult } from '../../engine/dice';
   import { haptic, sound } from '../fx';
@@ -9,6 +9,7 @@
   let phase = $state<'ready' | 'rolling' | 'shown'>('ready');
   let revealed = $state(0);
   const hero = $derived(prompt.who ? ui.s.guild.roster.find((h) => h.id === prompt.who) : undefined);
+  const left = $derived(combatFoes());
   const isTable = $derived(result.target === undefined && result.mods.length === 0 && result.faces.length >= 1);
   const outcome = $derived(result.success === undefined ? null : result.success ? 'success' : 'fail');
 
@@ -56,6 +57,11 @@
         <h3>{prompt.label}</h3>
         {#if hero}<div class="small muted">{hero.name}</div>{/if}
         {#if prompt.context}<div class="small">{prompt.context}</div>{/if}
+      </div>
+      <div class="utils">
+        {#if left}<span class="leftchip">⚔ {left.bodies} left</span>{/if}
+        <button class="utilbtn" onclick={(e) => (e.stopPropagation(), (ui.showLog = !ui.showLog))} aria-label="Adventure log">📜</button>
+        <button class="utilbtn" onclick={(e) => (e.stopPropagation(), (ui.showMenu = !ui.showMenu))} aria-label="Menu">☰</button>
       </div>
     </div>
 
@@ -114,4 +120,8 @@
   .verdict.fail { color: var(--parch); background: var(--oxblood); }
   .verdict.neutral.success { color: var(--parch); background: var(--oxblood); }
   .verdict.neutral.fail { color: var(--parch); background: var(--teal); }
+
+  .utils { display: flex; gap: 4px; align-items: center; margin-left: auto; flex: none; }
+  .utilbtn { width: 2.353rem; height: 2.353rem; border-radius: 8px; border: 1px solid var(--brass); background: rgba(0,0,0,.25); color: var(--parch); font-size: 1.1rem; }
+  .leftchip { font-family: var(--font-head); font-size: .8rem; background: var(--oxblood); color: var(--parch); border-radius: 99px; padding: 2px 8px; white-space: nowrap; }
 </style>

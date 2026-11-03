@@ -4,6 +4,7 @@ import type { GameState, LogEntry } from '../engine/types';
 import { Game } from '../engine/game';
 import { newState } from '../engine/state';
 import { saveGame, loadGame } from './persist';
+import { foeAlive, isMinor } from '../engine/foe';
 
 export type Pending =
   | { kind: 'choice'; prompt: ChoicePrompt<unknown>; resolve: (v: unknown) => void }
@@ -18,6 +19,7 @@ class UiStore {
   screen = $state<string>('title');
   sheetHero = $state<string | null>(null);
   showLog = $state(false);
+  showMenu = $state(false);
   showSettings = $state(false);
   game!: Game;
   private snapshot = '';
@@ -122,6 +124,16 @@ class UiIo implements Io {
 }
 
 export const ui = new UiStore();
+
+/** Live foe count for the combat header / prompt sheets. Null outside combat. */
+export function combatFoes(): { groups: number; bodies: number; initial: number; slain: number } | null {
+  const c = ui.s.combat;
+  if (!c) return null;
+  const alive = c.foes.filter(foeAlive);
+  const bodies = alive.reduce((n, f) => n + (isMinor(f) ? f.count : 1), 0);
+  const initial = c.foes.reduce((n, f) => n + (isMinor(f) ? (f.initialCount ?? f.count) : 1), 0);
+  return { groups: alive.length, bodies, initial, slain: Math.max(0, initial - bodies) };
+}
 
 export function art(path?: string): string {
   if (!path) return '';

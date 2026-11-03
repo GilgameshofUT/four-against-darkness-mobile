@@ -2,7 +2,9 @@
   import { ui, art } from '../store.svelte';
   import { FOES } from '../../data/foes';
   import { foeAlive, isMinor } from '../../engine/foe';
+import { combatFoes } from '../store.svelte';
   const c = $derived((void ui.version, ui.s.combat!));
+  const left = $derived(combatFoes());
   const env = $derived(ui.s.dungeon?.tiles[ui.s.dungeon.currentTile]?.env ?? 'dungeon');
   const bg = $derived(c.corridor ? 'combat_bg_corridor' : env === 'caverns' ? 'combat_bg_cavern' : env === 'fungal' ? 'combat_bg_fungal' : 'combat_bg_dungeon');
 </script>
@@ -11,6 +13,7 @@
   <div class="shade"></div>
   <div class="hdr row">
     <span class="pill teal">Round {c.turn}</span>
+    {#if left}<span class="pill gold">⚔ {left.bodies} foe{left.bodies === 1 ? '' : 's'} left{#if left.groups > 1} · {left.groups} groups{/if}{#if left.slain > 0} · {left.slain} slain{/if}</span>{/if}
     {#if c.corridor}<span class="pill">Corridor: front 2 fight</span>{/if}
     {#if c.ambush && c.turn === 1}<span class="pill red">Ambush!</span>{/if}
     {#if c.partySurprise && c.turn === 1}<span class="pill gold">You surprised them</span>{/if}

@@ -1,11 +1,12 @@
 <script lang="ts">
-  import { ui, art } from '../store.svelte';
+  import { ui, art, combatFoes } from '../store.svelte';
   import type { ChoicePrompt } from '../../engine/io';
   import { haptic } from '../fx';
   import { maxLife } from '../../engine/hero';
 
   let { prompt }: { prompt: ChoicePrompt<unknown> } = $props();
   const hero = $derived(prompt.who ? ui.s.guild.roster.find((h) => h.id === prompt.who) : undefined);
+  const left = $derived(combatFoes());
   function pick(v: unknown, disabled?: boolean | string) {
     if (disabled) return;
     haptic(8);
@@ -25,9 +26,14 @@
     {/if}
     <div class="head">
       {#if hero}<img class="portrait" src={art(`portraits/${hero.portrait}`)} alt="" width="48" height="64" />{/if}
-      <div>
+      <div class="grow">
         <h3>{prompt.title}</h3>
         {#if prompt.text}<p class="small">{prompt.text}</p>{/if}
+      </div>
+      <div class="utils">
+        {#if left}<span class="leftchip">⚔ {left.bodies} left</span>{/if}
+        <button class="utilbtn" onclick={() => (ui.showLog = !ui.showLog)} aria-label="Adventure log">📜</button>
+        <button class="utilbtn" onclick={() => (ui.showMenu = !ui.showMenu)} aria-label="Menu">☰</button>
       </div>
     </div>
     <div class="opts scroll">
@@ -64,6 +70,7 @@
   .art { margin: -12px -12px 0; height: 8.824rem; overflow: hidden; border-radius: 8px 8px 0 0; border-bottom: 2px solid var(--teal); background: var(--parch-2); }
   .art img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
   .head { display: flex; gap: 0.588rem; align-items: center; }
+  .head .grow { flex: 1; min-width: 0; }
   .opts { display: flex; flex-direction: column; gap: 0.471rem; overflow-y: auto; padding: 2px; }
   .opt { display: flex; align-items: center; gap: 0.588rem; text-align: left; min-height: 3.059rem; padding: 0.471rem 12px; border-radius: 8px; border: 2px solid var(--teal); background: linear-gradient(180deg, #f6ecd3, var(--parch-2)); box-shadow: 0 2px 0 var(--teal); }
   .opt:active { transform: translateY(2px); box-shadow: none; }
@@ -82,4 +89,8 @@
   .hero b { font-size: 0.85rem; line-height: 1.05; }
   .hero .lifebar { width: 100%; }
   .hero.dis { opacity: 0.4; filter: grayscale(1); }
+
+  .utils { display: flex; gap: 4px; align-items: center; margin-left: auto; flex: none; }
+  .utilbtn { width: 2.353rem; height: 2.353rem; border-radius: 8px; border: 1px solid var(--brass); background: rgba(0,0,0,.25); color: var(--parch); font-size: 1.1rem; }
+  .leftchip { font-family: var(--font-head); font-size: .8rem; background: var(--oxblood); color: var(--parch); border-radius: 99px; padding: 2px 8px; white-space: nowrap; }
 </style>
